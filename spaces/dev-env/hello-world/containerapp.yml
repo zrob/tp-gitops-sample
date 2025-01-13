@@ -1,0 +1,71 @@
+apiVersion: apps.tanzu.vmware.com/v1
+kind: ContainerApp
+metadata:
+  annotations:
+    apps.tanzu.vmware.com/promotable: ""
+    apps.tanzu.vmware.com/promote-group: ContainerApp/hello-world
+    containerapp.apps.tanzu.vmware.com/class: kubernetes
+  name: hello-world
+spec:
+  content:
+    buildTimestamp: "2025-01-13T23:14:51Z"
+    gitCommit: da46729a881edda3e6bfcee984b4f5142d041758
+    gitRef: tp
+    gitURL: github.com/zrob/hello-world.git
+    packageImage: harbor-dev.buildservice.dev/ci/containerapp-hello-world@sha256:c41965e56b765b66d06cd462ce34ce21456ed1d9c04169315bb614ced521ad7d
+    packageRefName: hello-world.apps.local
+    packageVersion: 20250113.2314.51148
+    summary: git:da46729 @ 2025-01-13T23:14:51Z
+    version: 20250113.2314.51148
+  health:
+    maxUnavailableReplicas: 10%
+  image: harbor-dev.buildservice.dev/ci/containerapp-hello-world:20250113.2314.51148@sha256:002f5a1eeedef741dc9215cc4de3cde28c7907573312df8d719c4322d59b4a91
+  ports:
+  - name: main
+    port: 8080
+    protocol: HTTP
+  relatedRefs:
+  - for: kubernetes.list-replicas
+    kind: Pod
+    labelSelector: containerapp.apps.tanzu.vmware.com/app-name=hello-world
+  - apiGroup: apps
+    for: kubernetes.service-binding-target
+    kind: Deployment
+    name: hello-world
+  - for: kubernetes.service-target
+    kind: Service
+    name: hello-world
+  - for: kubernetes.scale-replicas
+    keyPath: .data['values.yml']->[yaml].replicas
+    kind: Secret
+    name: hello-world-values
+  - for: kubernetes.scale-resources
+    keyPath: .data['values.yml']->[yaml].resources
+    kind: Secret
+    name: hello-world-values
+  - for: kubernetes.set-secret-env
+    keyPath: .data['values.yml']->[yaml].secretEnv
+    kind: Secret
+    name: hello-world-values
+  - apiGroup: packaging.carvel.dev
+    for: kubernetes.delete
+    kind: PackageInstall
+    name: hello-world
+  - apiGroup: data.packaging.carvel.dev
+    for: kubernetes.delete
+    kind: Package
+    name: hello-world.apps.local.20250113.2314.51148
+  - for: kubernetes.delete
+    kind: Secret
+    name: hello-world-values
+  - for: kubernetes.set-content-hash
+    keyPath: .data['values.yml']->[yaml].contentHash
+    kind: Secret
+    name: hello-world-values
+  - for: kubernetes.set-content-version
+    keyPath: .data['values.yml']->[yaml].contentVersion
+    kind: Secret
+    name: hello-world-values
+  resources:
+    cpu: 300m
+    memory: 1Gi
