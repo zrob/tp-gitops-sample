@@ -1,0 +1,31 @@
+apiVersion: data.packaging.carvel.dev/v1alpha1
+kind: Package
+metadata:
+  annotations:
+    apps.tanzu.vmware.com/promotable: ""
+    apps.tanzu.vmware.com/promote-group: ContainerApp/hello-world-other-one
+  creationTimestamp: null
+  name: hello-world-other-one.apps.local.20250116.2209.40463
+spec:
+  refName: hello-world-other-one.apps.local
+  releasedAt: "2025-01-16T22:10:41Z"
+  template:
+    spec:
+      deploy:
+      - kapp:
+          rawOptions:
+          - --wait=false
+      fetch:
+      - imgpkgBundle:
+          image: harbor-dev.buildservice.dev/ci/containerapp-hello-world-other-one@sha256:899d09f2f7978c08550cd3c9a757af417e54f0b21496f25d463b0f928adc46f0
+      template:
+      - ytt:
+          paths:
+          - config/
+      - kbld:
+          paths:
+          - .imgpkg/images.yml
+          - '-'
+  valuesSchema:
+    openAPIv3: null
+  version: 20250116.2209.40463
