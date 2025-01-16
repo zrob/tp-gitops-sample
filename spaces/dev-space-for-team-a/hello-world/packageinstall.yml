@@ -10,7 +10,7 @@ spec:
   packageRef:
     refName: hello-world.apps.local
     versionSelection:
-      constraints: 20250116.412.13802
+      constraints: 20250116.1928.30737
   serviceAccountName: carvel-package-installer
   values:
   - secretRef:

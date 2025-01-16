@@ -8,18 +8,18 @@ metadata:
   name: hello-world
 spec:
   content:
-    buildTimestamp: "2025-01-16T04:12:13Z"
-    gitCommit: da46729a881edda3e6bfcee984b4f5142d041758
+    buildTimestamp: "2025-01-16T19:28:30Z"
+    gitCommit: cf0ed9031c42ade05209ed976f40a55ef47a6195
     gitRef: tp
     gitURL: github.com/zrob/hello-world.git
-    packageImage: harbor-dev.buildservice.dev/ci/containerapp-hello-world@sha256:f1569581ff3bf465ec23bae370290a98fb51d3c8196964060e8a34989e0c17b3
+    packageImage: harbor-dev.buildservice.dev/ci/containerapp-hello-world@sha256:a254d6d118643c109c69c6951f176aec99ac7f773d72a456c7df9ea70ed158d9
     packageRefName: hello-world.apps.local
-    packageVersion: 20250116.412.13802
-    summary: git:da46729 @ 2025-01-16T04:12:13Z
-    version: 20250116.412.13802
+    packageVersion: 20250116.1928.30737
+    summary: git:cf0ed90 @ 2025-01-16T19:28:30Z
+    version: 20250116.1928.30737
   health:
     maxUnavailableReplicas: 10%
-  image: harbor-dev.buildservice.dev/ci/containerapp-hello-world:20250116.412.13802@sha256:cca77c412cea2026956fa16675f436478f627f528e7fdc61e79ceabca84de486
+  image: harbor-dev.buildservice.dev/ci/containerapp-hello-world:20250116.1928.30737@sha256:99285dbec7549c866947a682b23ac8a5e60522664e631df262be1bb987fd3b44
   ports:
   - name: main
     port: 8080
@@ -54,7 +54,7 @@ spec:
   - apiGroup: data.packaging.carvel.dev
     for: kubernetes.delete
     kind: Package
-    name: hello-world.apps.local.20250116.412.13802
+    name: hello-world.apps.local.20250116.1928.30737
   - for: kubernetes.delete
     kind: Secret
     name: hello-world-values
