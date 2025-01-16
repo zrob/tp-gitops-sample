@@ -5,10 +5,10 @@ metadata:
     apps.tanzu.vmware.com/promotable: ""
     apps.tanzu.vmware.com/promote-group: ContainerApp/hello-world
   creationTimestamp: null
-  name: hello-world.apps.local.20250116.412.13802
+  name: hello-world.apps.local.20250116.1928.30737
 spec:
   refName: hello-world.apps.local
-  releasedAt: "2025-01-16T04:13:07Z"
+  releasedAt: "2025-01-16T19:30:18Z"
   template:
     spec:
       deploy:
@@ -17,7 +17,7 @@ spec:
           - --wait=false
       fetch:
       - imgpkgBundle:
-          image: harbor-dev.buildservice.dev/ci/containerapp-hello-world@sha256:f1569581ff3bf465ec23bae370290a98fb51d3c8196964060e8a34989e0c17b3
+          image: harbor-dev.buildservice.dev/ci/containerapp-hello-world@sha256:a254d6d118643c109c69c6951f176aec99ac7f773d72a456c7df9ea70ed158d9
       template:
       - ytt:
           paths:
@@ -28,4 +28,4 @@ spec:
           - '-'
   valuesSchema:
     openAPIv3: null
-  version: 20250116.412.13802
+  version: 20250116.1928.30737
