@@ -3,23 +3,23 @@ kind: ContainerApp
 metadata:
   annotations:
     apps.tanzu.vmware.com/promotable: ""
-    apps.tanzu.vmware.com/promote-group: ContainerApp/hello-world
+    apps.tanzu.vmware.com/promote-group: ContainerApp/hello-world-other
     containerapp.apps.tanzu.vmware.com/class: kubernetes
-  name: hello-world
+  name: hello-world-other
 spec:
   content:
-    buildTimestamp: "2025-01-16T19:28:30Z"
-    gitCommit: cf0ed9031c42ade05209ed976f40a55ef47a6195
+    buildTimestamp: "2025-01-16T19:54:44Z"
+    gitCommit: a767156e43ea9fd59e13c5c1c9375718684136de
     gitRef: tp
     gitURL: github.com/zrob/hello-world.git
-    packageImage: harbor-dev.buildservice.dev/ci/containerapp-hello-world@sha256:a254d6d118643c109c69c6951f176aec99ac7f773d72a456c7df9ea70ed158d9
-    packageRefName: hello-world.apps.local
-    packageVersion: 20250116.1928.30737
-    summary: git:cf0ed90 @ 2025-01-16T19:28:30Z
-    version: 20250116.1928.30737
+    packageImage: harbor-dev.buildservice.dev/ci/containerapp-hello-world-other@sha256:106c3161cc65895fc92769d64d5d1ba58fe5caf5b6cf4cc51b115e6cde59c2e7
+    packageRefName: hello-world-other.apps.local
+    packageVersion: 20250116.1954.44453
+    summary: git:a767156 @ 2025-01-16T19:54:44Z
+    version: 20250116.1954.44453
   health:
     maxUnavailableReplicas: 10%
-  image: harbor-dev.buildservice.dev/ci/containerapp-hello-world:20250116.1928.30737@sha256:99285dbec7549c866947a682b23ac8a5e60522664e631df262be1bb987fd3b44
+  image: harbor-dev.buildservice.dev/ci/containerapp-hello-world-other:20250116.1954.44453@sha256:71f6ec3b44f2d6a5c4337270a54b683a16649a178a860fde8666458e8973c8fd
   ports:
   - name: main
     port: 8080
@@ -27,45 +27,45 @@ spec:
   relatedRefs:
   - for: kubernetes.list-replicas
     kind: Pod
-    labelSelector: containerapp.apps.tanzu.vmware.com/app-name=hello-world
+    labelSelector: containerapp.apps.tanzu.vmware.com/app-name=hello-world-other
   - apiGroup: apps
     for: kubernetes.service-binding-target
     kind: Deployment
-    name: hello-world
+    name: hello-world-other
   - for: kubernetes.service-target
     kind: Service
-    name: hello-world
+    name: hello-world-other
   - for: kubernetes.scale-replicas
     keyPath: .data['values.yml']->[yaml].replicas
     kind: Secret
-    name: hello-world-values
+    name: hello-world-other-values
   - for: kubernetes.scale-resources
     keyPath: .data['values.yml']->[yaml].resources
     kind: Secret
-    name: hello-world-values
+    name: hello-world-other-values
   - for: kubernetes.set-secret-env
     keyPath: .data['values.yml']->[yaml].secretEnv
     kind: Secret
-    name: hello-world-values
+    name: hello-world-other-values
   - apiGroup: packaging.carvel.dev
     for: kubernetes.delete
     kind: PackageInstall
-    name: hello-world
+    name: hello-world-other
   - apiGroup: data.packaging.carvel.dev
     for: kubernetes.delete
     kind: Package
-    name: hello-world.apps.local.20250116.1928.30737
+    name: hello-world-other.apps.local.20250116.1954.44453
   - for: kubernetes.delete
     kind: Secret
-    name: hello-world-values
+    name: hello-world-other-values
   - for: kubernetes.set-content-hash
     keyPath: .data['values.yml']->[yaml].contentHash
     kind: Secret
-    name: hello-world-values
+    name: hello-world-other-values
   - for: kubernetes.set-content-version
     keyPath: .data['values.yml']->[yaml].contentVersion
     kind: Secret
-    name: hello-world-values
+    name: hello-world-other-values
   resources:
     cpu: 300m
     memory: 1Gi

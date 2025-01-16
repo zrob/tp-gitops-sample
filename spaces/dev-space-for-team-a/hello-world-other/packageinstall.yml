@@ -3,18 +3,18 @@ kind: PackageInstall
 metadata:
   annotations:
     apps.tanzu.vmware.com/promotable: ""
-    apps.tanzu.vmware.com/promote-group: ContainerApp/hello-world
+    apps.tanzu.vmware.com/promote-group: ContainerApp/hello-world-other
   creationTimestamp: null
-  name: hello-world
+  name: hello-world-other
 spec:
   packageRef:
-    refName: hello-world.apps.local
+    refName: hello-world-other.apps.local
     versionSelection:
-      constraints: 20250116.1928.30737
+      constraints: 20250116.1954.44453
   serviceAccountName: carvel-package-installer
   values:
   - secretRef:
-      name: hello-world-values
+      name: hello-world-other-values
 status:
   conditions: null
   friendlyDescription: ""
