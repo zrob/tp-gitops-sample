@@ -1,0 +1,31 @@
+apiVersion: data.packaging.carvel.dev/v1alpha1
+kind: Package
+metadata:
+  annotations:
+    apps.tanzu.vmware.com/promotable: ""
+    apps.tanzu.vmware.com/promote-group: ContainerApp/hello-world
+  creationTimestamp: null
+  name: hello-world.apps.local.20250117.1745.43824
+spec:
+  refName: hello-world.apps.local
+  releasedAt: "2025-01-17T17:48:07Z"
+  template:
+    spec:
+      deploy:
+      - kapp:
+          rawOptions:
+          - --wait=false
+      fetch:
+      - imgpkgBundle:
+          image: harbor-dev.buildservice.dev/ci/containerapp-hello-world@sha256:7229e2080f6b796102c247dfa1955d7eac3687083be0c12bf3b7e507cf4cc754
+      template:
+      - ytt:
+          paths:
+          - config/
+      - kbld:
+          paths:
+          - .imgpkg/images.yml
+          - '-'
+  valuesSchema:
+    openAPIv3: null
+  version: 20250117.1745.43824

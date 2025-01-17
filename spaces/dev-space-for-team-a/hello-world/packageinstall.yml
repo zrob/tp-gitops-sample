@@ -1,0 +1,21 @@
+apiVersion: packaging.carvel.dev/v1alpha1
+kind: PackageInstall
+metadata:
+  annotations:
+    apps.tanzu.vmware.com/promotable: ""
+    apps.tanzu.vmware.com/promote-group: ContainerApp/hello-world
+  creationTimestamp: null
+  name: hello-world
+spec:
+  packageRef:
+    refName: hello-world.apps.local
+    versionSelection:
+      constraints: 20250117.1745.43824
+  serviceAccountName: carvel-package-installer
+  values:
+  - secretRef:
+      name: hello-world-values
+status:
+  conditions: null
+  friendlyDescription: ""
+  observedGeneration: 0
