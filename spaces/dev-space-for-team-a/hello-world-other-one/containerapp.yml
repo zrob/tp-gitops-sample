@@ -1,0 +1,71 @@
+apiVersion: apps.tanzu.vmware.com/v1
+kind: ContainerApp
+metadata:
+  annotations:
+    apps.tanzu.vmware.com/promotable: ""
+    apps.tanzu.vmware.com/promote-group: ContainerApp/hello-world-other-one
+    containerapp.apps.tanzu.vmware.com/class: kubernetes
+  name: hello-world-other-one
+spec:
+  content:
+    buildTimestamp: "2025-01-17T17:45:43Z"
+    gitCommit: 22b1f20b4ab097ef41c4815d8e5d0d7c4c1be865
+    gitRef: tp
+    gitURL: github.com/zrob/hello-world.git
+    packageImage: harbor-dev.buildservice.dev/ci/containerapp-hello-world-other-one@sha256:d2ef141ed075ddcbf1f542195cd721d0d206346ddf26aaefd92d5c3f6cd08e6b
+    packageRefName: hello-world-other-one.apps.local
+    packageVersion: 20250117.1745.43824
+    summary: git:22b1f20 @ 2025-01-17T17:45:43Z
+    version: 20250117.1745.43824
+  health:
+    maxUnavailableReplicas: 10%
+  image: harbor-dev.buildservice.dev/ci/containerapp-hello-world-other-one:20250117.1745.43824@sha256:f8a7b0a1889cd8e1c4473315211c0931a4957a74046b095ce707690f82f0a65d
+  ports:
+  - name: main
+    port: 8080
+    protocol: HTTP
+  relatedRefs:
+  - for: kubernetes.list-replicas
+    kind: Pod
+    labelSelector: containerapp.apps.tanzu.vmware.com/app-name=hello-world-other-one
+  - apiGroup: apps
+    for: kubernetes.service-binding-target
+    kind: Deployment
+    name: hello-world-other-one
+  - for: kubernetes.service-target
+    kind: Service
+    name: hello-world-other-one
+  - for: kubernetes.scale-replicas
+    keyPath: .data['values.yml']->[yaml].replicas
+    kind: Secret
+    name: hello-world-other-one-values
+  - for: kubernetes.scale-resources
+    keyPath: .data['values.yml']->[yaml].resources
+    kind: Secret
+    name: hello-world-other-one-values
+  - for: kubernetes.set-secret-env
+    keyPath: .data['values.yml']->[yaml].secretEnv
+    kind: Secret
+    name: hello-world-other-one-values
+  - apiGroup: packaging.carvel.dev
+    for: kubernetes.delete
+    kind: PackageInstall
+    name: hello-world-other-one
+  - apiGroup: data.packaging.carvel.dev
+    for: kubernetes.delete
+    kind: Package
+    name: hello-world-other-one.apps.local.20250117.1745.43824
+  - for: kubernetes.delete
+    kind: Secret
+    name: hello-world-other-one-values
+  - for: kubernetes.set-content-hash
+    keyPath: .data['values.yml']->[yaml].contentHash
+    kind: Secret
+    name: hello-world-other-one-values
+  - for: kubernetes.set-content-version
+    keyPath: .data['values.yml']->[yaml].contentVersion
+    kind: Secret
+    name: hello-world-other-one-values
+  resources:
+    cpu: 300m
+    memory: 1Gi
